@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KabusapiNet", "KabusapiNet\KabusapiNet.csproj", "{49893644-9257-46B0-84F3-A48B1A2B32CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{64F5D5D3-1028-44AD-89DD-C33CF5B240F7}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66A16683-2158-494F-90A3-CE36EEE19ACD}
+	EndGlobalSection
+EndGlobal
