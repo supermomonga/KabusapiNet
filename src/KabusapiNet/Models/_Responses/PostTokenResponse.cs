@@ -3,7 +3,7 @@
 /// <summary>
 /// APIトークン
 /// </summary>
-internal class PostTokenResponse
+public class PostTokenResponse
 {
     /// <summary>
     /// 結果コード
