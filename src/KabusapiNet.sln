@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KabusapiNet", "KabusapiNet\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目", "ソリューション項目", "{64F5D5D3-1028-44AD-89DD-C33CF5B240F7}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
