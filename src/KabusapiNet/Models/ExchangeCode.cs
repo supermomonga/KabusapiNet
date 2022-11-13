@@ -5,17 +5,15 @@
 /// </summary>
 public enum ExchangeCode
 {
-    Unknwon = 0,
-
     /// <summary>
     /// 東証
     /// </summary>
     TokyoStockExchange = 1,
 
     /// <summary>
-    /// 明証
+    /// 名証
     /// </summary>
-    NagoyaStockExchange = 2,
+    NagoyaStockExchange = 3,
 
     /// <summary>
     /// 福証
@@ -26,4 +24,28 @@ public enum ExchangeCode
     /// 札証
     /// </summary>
     SapporoStockExchange = 6,
+
+    /// <summary>
+    /// SOR
+    /// </summary>
+    SmartOrderRouting = 9,
+
+    #region 先物・オプション
+
+    /// <summary>
+    /// 日通し
+    /// </summary>
+    AllDaySession = 2,
+
+    /// <summary>
+    /// 日中
+    /// </summary>
+    DayTimeSession = 23,
+
+    /// <summary>
+    /// 夜間
+    /// </summary>
+    NightTimeSession = 24
+
+    #endregion 先物・オプション
 }
