@@ -78,5 +78,25 @@ public enum FrontOrderType
     /// <summary>
     /// 逆指値
     /// </summary>
-    LimitOrderAfterHit = 30
+    LimitOrderAfterHit = 30,
+
+
+    #region 先物・オプション
+
+    /// <summary>
+    /// 引成（金融派生商品）
+    /// </summary>
+    MarketOrderOnSessionCloseForFinancialDerivative = 18,
+
+    /// <summary>
+    /// 引指（金融派生商品）
+    /// </summary>
+    LimitOrderOnSessionCloseForFinancialDerivative = 28,
+
+    /// <summary>
+    /// 成行（金融派生商品）
+    /// </summary>
+    MarketOrderForFinancialDerivative = 120
+
+    #endregion 先物
 }
