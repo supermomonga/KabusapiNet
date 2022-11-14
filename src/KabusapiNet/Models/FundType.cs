@@ -18,7 +18,9 @@ public enum FundType
     SubstituteSecurities = 2,
 
     /// <summary>
-    /// 信用取引
+    /// 信用取引（非推奨・廃止予定）
+    /// https://github.com/kabucom/kabusapi/issues/604
     /// </summary>
+    [Obsolete("この列挙値は実際には使用できません")]
     MarginTrade = 3
 }
