@@ -45,7 +45,16 @@ public enum ExchangeCode
     /// <summary>
     /// 夜間
     /// </summary>
-    NightTimeSession = 24
+    NightTimeSession = 24,
 
     #endregion 先物・オプション
+
+    #region 為替
+
+    /// <summary>
+    /// 為替
+    /// </summary>
+    ForeignExchange = 300
+
+    #endregion 為替
 }

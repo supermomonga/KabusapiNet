@@ -3,7 +3,7 @@
 /// <summary>
 /// 登録銘柄情報
 /// </summary>
-public class PutRegisterResponseRegistrationItem
+public class SymbolInfo
 {
     /// <summary>
     /// 銘柄コード
@@ -18,6 +18,6 @@ public class PutRegisterResponseRegistrationItem
     public ExchangeCode Exchange { get; init; }
 
     [JsonConstructor]
-    public PutRegisterResponseRegistrationItem(string symbol, ExchangeCode exchange)
+    public SymbolInfo(string symbol, ExchangeCode exchange)
         => (Symbol, Exchange) = (symbol, exchange);
 }

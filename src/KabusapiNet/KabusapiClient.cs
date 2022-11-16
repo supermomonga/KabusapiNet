@@ -176,6 +176,84 @@ public class KabusapiClient : IDisposable
 
     #endregion 認証
 
+    #region 発注
+
+    #endregion 発注
+
+    #region 情報
+
+    /// <summary>
+    /// 指定した銘柄の時価情報・板情報を取得します
+    /// </summary>
+    /// <param name="symbol">銘柄コード</param>
+    /// <param name="exchange">市場</param>
+    /// <returns></returns>
+    public async Task<GetBoardResponse> GetBoardAsync(string symbol, ExchangeCode exchange)
+        => await GetAsync<GetBoardResponse>($"board/{symbol}@{exchange}");
+
+    #endregion 情報
+
+    #region 銘柄登録
+
+    #region 銘柄登録
+
+    /// <summary>
+    /// PUSH配信する銘柄を登録します。
+    /// </summary>
+    /// <param name="symbols">登録する銘柄のリスト</param>
+    /// <returns></returns>
+    public async Task<PutRegisterResponse> PutRegisterAsync(IList<SymbolInfo> symbols)
+    {
+        var payload = new PutRegisterRequest(symbols);
+        return await PutAsync<PutRegisterRequest, PutRegisterResponse>("register", payload);
+    }
+
+    /// <summary>
+    /// PUSH配信する銘柄を登録します。
+    /// </summary>
+    /// <param name="symbol">登録する銘柄</param>
+    /// <returns></returns>
+    public async Task<PutRegisterResponse> PutRegisterAsync(SymbolInfo symbol)
+        => await PutRegisterAsync(new SymbolInfo[] { symbol });
+
+    #endregion 銘柄登録
+
+    #region 銘柄登録解除
+
+    /// <summary>
+    /// API登録銘柄リストに登録されている銘柄を解除します
+    /// </summary>
+    /// <param name="symbols">登録解除する銘柄のリスト</param>
+    /// <returns></returns>
+    public async Task<PutRegisterResponse> PutUnregisterAsync(IList<SymbolInfo> symbols)
+    {
+        var payload = new PutRegisterRequest(symbols);
+        return await PutAsync<PutRegisterRequest, PutRegisterResponse>("unregister", payload);
+    }
+
+    /// <summary>
+    /// API登録銘柄リストに登録されている銘柄を解除します
+    /// </summary>
+    /// <param name="symbol">登録解除する銘柄</param>
+    /// <returns></returns>
+    public async Task<PutRegisterResponse> PutUnregisterAsync(SymbolInfo symbol)
+        => await PutUnregisterAsync(new SymbolInfo[] { symbol });
+
+    #endregion 銘柄登録解除
+
+    #region 銘柄登録全解除
+
+    /// <summary>
+    /// API登録銘柄リストに登録されている銘柄をすべて解除します
+    /// </summary>
+    /// <returns></returns>
+    public async Task<PutRegisterResponse> PutUnregisterAllAsync()
+        => await PutAsync<PutRegisterResponse>("unregister");
+
+    #endregion 銘柄登録全解除
+
+    #endregion 銘柄登録
+
     #endregion REST API
 
     #region IDisposable

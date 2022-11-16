@@ -9,8 +9,8 @@ public class PutRegisterResponse
     /// 現在登録されている銘柄のリスト
     /// </summary>
     [JsonPropertyName("RegistList")]
-    public IReadOnlyList<PutRegisterResponseRegistrationItem> RegistrationItems { get; init; }
+    public IReadOnlyList<SymbolInfo> RegistrationItems { get; init; }
 
-    public PutRegisterResponse(IReadOnlyList<PutRegisterResponseRegistrationItem> registrationItems)
+    public PutRegisterResponse(IReadOnlyList<SymbolInfo> registrationItems)
         => RegistrationItems = registrationItems;
 }
