@@ -333,5 +333,24 @@ public class GetBoardResponse
     public IReadOnlyCollection<IOrderLevel> Asks
         => _Asks ??= CreateAsks();
 
+    private DateTimeOffset? _UpdatedAt;
+    public DateTimeOffset UpdatedAt
+    {
+        get
+        {
+            if (_UpdatedAt is null)
+            {
+                _UpdatedAt = new DateTimeOffset[5] {
+                    CurrentPriceTime,
+                    OpeningPriceTime,
+                    TradingVolumeTime,
+                    BidTime,
+                    AskTime
+                }.Max();
+            }
+            return _UpdatedAt.Value;
+        }
+    }
+
     #endregion Normalized properties
 }
