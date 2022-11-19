@@ -3,7 +3,7 @@
 /// <summary>
 /// 気配値
 /// </summary>
-public class GetBoardResponseOrderLevelItem
+public class GetBoardResponseOrderLevelItem : IOrderLevel
 {
     /// <summary>
     /// 値段

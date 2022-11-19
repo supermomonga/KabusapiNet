@@ -294,4 +294,44 @@ public class GetBoardResponse
         TotalMarketValue = totalMarketValue;
         SecurityType = securityType;
     }
+
+    #region Normalized properties
+
+    private IReadOnlyCollection<IOrderLevel> CreateBids()
+        => new IOrderLevel[] {
+            Sell1,
+            Sell2,
+            Sell3,
+            Sell4,
+            Sell5,
+            Sell6,
+            Sell7,
+            Sell8,
+            Sell9,
+            Sell10,
+        }.AsReadOnly();
+
+    public IReadOnlyCollection<IOrderLevel>? _Bids;
+    public IReadOnlyCollection<IOrderLevel> Bids
+        => _Bids ??= CreateBids();
+
+    private IReadOnlyCollection<IOrderLevel> CreateAsks()
+        => new IOrderLevel[] {
+            Buy1,
+            Buy2,
+            Buy3,
+            Buy4,
+            Buy5,
+            Buy6,
+            Buy7,
+            Buy8,
+            Buy9,
+            Buy10,
+        }.AsReadOnly();
+
+    public IReadOnlyCollection<IOrderLevel>? _Asks;
+    public IReadOnlyCollection<IOrderLevel> Asks
+        => _Asks ??= CreateAsks();
+
+    #endregion Normalized properties
 }

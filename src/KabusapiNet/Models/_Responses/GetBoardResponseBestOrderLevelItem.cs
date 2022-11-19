@@ -3,7 +3,7 @@
 /// <summary>
 /// 最良気配値
 /// </summary>
-public class GetBoardResponseBestOrderLevelItem
+public class GetBoardResponseBestOrderLevelItem : IOrderLevel
 {
     /// <summary>
     /// 時刻
