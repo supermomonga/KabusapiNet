@@ -85,7 +85,8 @@ public class KabusapiClient : IDisposable
     private Uri SocketEndPoint
         => _SocketEndPoint ??= new Uri($"ws://localhost:{Port}/kabusapi/websocket/");
 
-    public EventHandler<DataReceivedEventArgs<GetBoardResponse>>? OnBoardReceived;
+    public event EventHandler<DataReceivedEventArgs<GetBoardResponse>>? OnBoardReceived;
+
 
     #region REST API
 
