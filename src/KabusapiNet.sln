@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeOrderBookViewer", "example\RealTimeOrderBookViewer\RealTimeOrderBookViewer.csproj", "{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{C9BA9598-FBB1-40CD-B3F4-E6C1147E31B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49893644-9257-46B0-84F3-A48B1A2B32CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC1A4053-D6ED-4AFB-A9E0-ED8357492F5E} = {C9BA9598-FBB1-40CD-B3F4-E6C1147E31B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66A16683-2158-494F-90A3-CE36EEE19ACD}
