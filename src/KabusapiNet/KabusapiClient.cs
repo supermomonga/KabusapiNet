@@ -2,7 +2,11 @@
 
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Net.WebSockets;
+using System.Reactive.Linq;
 using System.Text.Json;
+
+using Websocket.Client;
 
 namespace KabusapiNet;
 
@@ -72,7 +76,16 @@ public class KabusapiClient : IDisposable
 
     private string? _EndPoint;
     private string EndPoint
-        => _EndPoint ??= $"http://localhost:{Port}/";
+        => _EndPoint ??= $"http://localhost:{Port}/kabusapi/";
+
+    private WebsocketClient? Socket { get; set; }
+
+    private Uri? _SocketEndPoint;
+
+    private Uri SocketEndPoint
+        => _SocketEndPoint ??= new Uri($"ws://localhost:{Port}/kabusapi/websocket/");
+
+    public EventHandler<DataReceivedEventArgs<GetBoardResponse>>? OnBoardReceived;
 
     #region REST API
 
@@ -255,6 +268,40 @@ public class KabusapiClient : IDisposable
     #endregion 銘柄登録
 
     #endregion REST API
+
+    #region WebSocket API
+
+    public async Task SubscribeAsync()
+    {
+        Socket?.Dispose();
+
+        Socket = new WebsocketClient(SocketEndPoint);
+        Socket.MessageReceived.Subscribe(msg =>
+        {
+            if (msg.MessageType == WebSocketMessageType.Text)
+            {
+                var res = JsonSerializer.Deserialize<GetBoardResponse>(msg.Text);
+                if (res is not null)
+                {
+                    OnBoardReceived?.Invoke(this, new DataReceivedEventArgs<GetBoardResponse>(res));
+                }
+            }
+        });
+        await Socket.Start();
+    }
+
+    public async Task UnsubscribeAsync()
+    {
+        var s = Socket;
+        Socket = null;
+        if (s is not null)
+        {
+            await s.Stop(WebSocketCloseStatus.NormalClosure, "Unsubscribe");
+            s.Dispose();
+        }
+    }
+
+    #endregion WebSocket API
 
     #region IDisposable
 
