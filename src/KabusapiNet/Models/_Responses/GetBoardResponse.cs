@@ -24,10 +24,10 @@ public class GetBoardResponse
     public DateTimeOffset CurrentPriceTime { get; init; }
 
     [JsonPropertyName("CurrentPriceChangeStatus")]
-    public string CurrentPriceChangeStatus { get; init; }
+    public CurrentPriceChangeStatus CurrentPriceChangeStatus { get; init; }
 
     [JsonPropertyName("CurrentPriceStatus")]
-    public double CurrentPriceStatus { get; init; }
+    public CurrentPriceStatus CurrentPriceStatus { get; init; }
 
     [JsonPropertyName("CalcPrice")]
     public double CalcPrice { get; init; }
@@ -184,8 +184,8 @@ public class GetBoardResponse
         string exchangeName,
         double currentPrice,
         DateTimeOffset currentPriceTime,
-        string currentPriceChangeStatus,
-        double currentPriceStatus,
+        CurrentPriceChangeStatus currentPriceChangeStatus,
+        CurrentPriceStatus currentPriceStatus,
         double calcPrice,
         double previousClose,
         DateTimeOffset previousCloseTime,
