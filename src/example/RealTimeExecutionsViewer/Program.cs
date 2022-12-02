@@ -32,7 +32,6 @@ internal class Program
         }
 
         var sym = string.Empty;
-        sym = "6920";
         while (string.IsNullOrEmpty(sym))
         {
             Console.WriteLine("Please enter symbol code:");
