@@ -23,6 +23,21 @@ internal class Program
 #endif
         }
 
+        var sym = string.Empty;
+        while (string.IsNullOrEmpty(sym))
+        {
+            Console.WriteLine("Please enter symbol code:");
+            Console.Write(" =>");
+            sym = Console.ReadLine()?.Trim() ?? string.Empty;
+#if DEBUG
+            if (string.IsNullOrEmpty(sym))
+            {
+                // SONY
+                sym = "6758";
+            }
+#endif
+        }
+
         Console.WriteLine("Start connecting...");
         var kabusapi = new KabusapiClient(pw);
         await kabusapi.RefreshTokenIfNeededAsync();
@@ -33,27 +48,47 @@ internal class Program
             Console.ReadLine();
             Environment.Exit(1);
         }
-        var symbol = new SymbolInfo("6758", ExchangeCode.TokyoStockExchange);
+        Console.WriteLine("Successfully authenticated.");
 
+        var symbol = new SymbolInfo(sym, ExchangeCode.TokyoStockExchange);
+
+        Console.WriteLine("Unregister all symbols.");
         await kabusapi.PutUnregisterAllAsync();
+
+        Console.WriteLine($"Register `{symbol.Symbol}`.");
         await kabusapi.PutRegisterAsync(symbol);
+
+        InitializeConsole();
+
+        // REST
         var orderbook = await kabusapi.GetBoardAsync(symbol.Symbol, ExchangeCode.TokyoStockExchange);
+        if (orderbook is not null)
+        {
+            RedrawOrderBook(orderbook);
+        }
 
-        Console.CursorVisible = false;
-        Console.Clear();
-
+        // WebSocket
         kabusapi.OnBoardReceived += OnBoardReceived;
         await kabusapi.SubscribeAsync();
 
         while (true)
         {
-            await Task.Delay(100);
+            // TODO: handle SIGTERM
+            await Task.Delay(10);
         }
     }
 
     private static void OnBoardReceived(object? sender, DataReceivedEventArgs<GetBoardResponse> e)
     {
         var orderbook = e.Data;
+        if (orderbook is not null)
+        {
+            RedrawOrderBook(orderbook);
+        }
+    }
+
+    private static void RedrawOrderBook(GetBoardResponse orderbook)
+    {
         var spread = orderbook.BidPrice - orderbook.AskPrice;
         var now = DateTime.Now;
         var latency = now - orderbook.UpdatedAt;
@@ -84,5 +119,11 @@ internal class Program
             Console.WriteLine("{0:yyyy-MM-dd HH:mm:ss.fff}", orderbook.AskTime);
             Console.WriteLine("------------------------------");
         }
+    }
+
+    private static void InitializeConsole()
+    {
+        Console.CursorVisible = false;
+        Console.Clear();
     }
 }
