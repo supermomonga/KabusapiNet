@@ -83,7 +83,7 @@ public class KabusapiClient : IDisposable
     private Uri? _SocketEndPoint;
 
     private Uri SocketEndPoint
-        => _SocketEndPoint ??= new Uri($"ws://localhost:{Port}/kabusapi/websocket/");
+        => _SocketEndPoint ??= new Uri($"ws://localhost:{Port}/kabusapi/websocket");
 
     public event EventHandler<DataReceivedEventArgs<GetBoardResponse>>? OnBoardReceived;
 
@@ -118,7 +118,8 @@ public class KabusapiClient : IDisposable
         using var stream = await res.Content.ReadAsStreamAsync();
         if (res.IsSuccessStatusCode)
         {
-            var response = await JsonSerializer.DeserializeAsync<TResponse>(stream).ConfigureAwait(false);
+            var response = await JsonSerializer.DeserializeAsync<TResponse>(stream)
+                .ConfigureAwait(false);
             if (response is null)
             {
                 throw new Exception("Failed to parse response.");
@@ -130,7 +131,8 @@ public class KabusapiClient : IDisposable
         }
         else
         {
-            var error = await JsonSerializer.DeserializeAsync<ErrorResponse>(stream).ConfigureAwait(false);
+            var error = await JsonSerializer.DeserializeAsync<ErrorResponse>(stream)
+                .ConfigureAwait(false);
             if (error is null)
             {
                 throw new Exception("Unknown error.");
@@ -170,7 +172,7 @@ public class KabusapiClient : IDisposable
     #region 認証
 
     public async Task<PostTokenResponse> PostTokenAsync()
-        => await PostAsync<PostTokenResponse>("token");
+        => await PostAsync<PostTokenRequest, PostTokenResponse>("token", new PostTokenRequest(ApiPassword));
 
     public async Task RefreshTokenAsync()
     {
@@ -203,7 +205,7 @@ public class KabusapiClient : IDisposable
     /// <param name="exchange">市場</param>
     /// <returns></returns>
     public async Task<GetBoardResponse> GetBoardAsync(string symbol, ExchangeCode exchange)
-        => await GetAsync<GetBoardResponse>($"board/{symbol}@{exchange}");
+        => await GetAsync<GetBoardResponse>($"board/{symbol}@{(int)exchange}");
 
     #endregion 情報
 
@@ -262,7 +264,7 @@ public class KabusapiClient : IDisposable
     /// </summary>
     /// <returns></returns>
     public async Task<PutRegisterResponse> PutUnregisterAllAsync()
-        => await PutAsync<PutRegisterResponse>("unregister");
+        => await PutAsync<PutRegisterResponse>("unregister/all");
 
     #endregion 銘柄登録全解除
 
