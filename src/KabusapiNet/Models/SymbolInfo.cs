@@ -1,4 +1,5 @@
-﻿namespace KabusapiNet.Models;
+﻿
+namespace KabusapiNet.Models;
 
 /// <summary>
 /// 登録銘柄情報
@@ -20,4 +21,18 @@ public class SymbolInfo
     [JsonConstructor]
     public SymbolInfo(string symbol, ExchangeCode exchange)
         => (Symbol, Exchange) = (symbol, exchange);
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is SymbolInfo si)
+        {
+            return si.Symbol.Equals(Symbol) && si.Exchange.Equals(Exchange);
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Symbol.GetHashCode() ^ Exchange.GetHashCode();
+    }
 }
