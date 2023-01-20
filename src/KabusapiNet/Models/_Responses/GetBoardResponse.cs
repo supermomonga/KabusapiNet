@@ -297,6 +297,10 @@ public class GetBoardResponse
 
     #region Normalized properties
 
+    private SymbolInfo? _SymbolInfo;
+    public SymbolInfo SymbolInfo
+        => _SymbolInfo ??= new SymbolInfo(Symbol, Exchange);
+
     private IReadOnlyCollection<IOrderLevel> CreateBids()
         => new IOrderLevel[] {
             Buy1,
