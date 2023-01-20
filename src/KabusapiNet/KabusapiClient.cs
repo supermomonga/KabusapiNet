@@ -85,7 +85,12 @@ public class KabusapiClient : IDisposable
     private Uri SocketEndPoint
         => _SocketEndPoint ??= new Uri($"ws://localhost:{Port}/kabusapi/websocket");
 
+    public event EventHandler<EventArgs>? OnConnecting;
+
+    public event EventHandler<EventArgs>? OnDisconnected;
+
     public event EventHandler<DataReceivedEventArgs<GetBoardResponse>>? OnBoardReceived;
+
 
 
     #region REST API
@@ -279,6 +284,14 @@ public class KabusapiClient : IDisposable
         Socket?.Dispose();
 
         Socket = new WebsocketClient(SocketEndPoint);
+        Socket.DisconnectionHappened.Subscribe(msg =>
+        {
+            OnDisconnected?.Invoke(this, new EventArgs());
+        });
+        Socket.ReconnectionHappened.Subscribe(msg =>
+        {
+            OnConnecting?.Invoke(this, new EventArgs());
+        });
         Socket.MessageReceived.Subscribe(msg =>
         {
             if (msg.MessageType == WebSocketMessageType.Text)
