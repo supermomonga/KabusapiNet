@@ -356,5 +356,8 @@ public class GetBoardResponse
         }
     }
 
+    public double Spread
+        => Sell1.Price - Buy1.Price;
+
     #endregion Normalized properties
 }
