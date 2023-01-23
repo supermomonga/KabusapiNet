@@ -32,7 +32,7 @@ public class SymbolInfo
     }
 
     public override int GetHashCode()
-        => Symbol.GetHashCode() ^ Exchange.GetHashCode();
+        => (Symbol?.GetHashCode() ?? default) ^ Exchange.GetHashCode();
 
     public static bool operator ==(SymbolInfo o1, SymbolInfo o2)
         => EqualityComparer<SymbolInfo>.Default.Equals(o1, o2);
