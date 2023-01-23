@@ -26,7 +26,7 @@ public class SymbolInfo
     {
         if (obj is SymbolInfo si)
         {
-            return si.Symbol.Equals(Symbol) && si.Exchange.Equals(Exchange);
+            return si.Symbol == Symbol && si.Exchange.Equals(Exchange);
         }
         return false;
     }
