@@ -78,7 +78,7 @@ public class KabusapiClient : IDisposable
     private string EndPoint
         => _EndPoint ??= $"http://localhost:{Port}/kabusapi/";
 
-    private WebsocketClient? Socket { get; set; }
+    private WebsocketClient? _Socket;
 
     private Uri? _SocketEndPoint;
 
@@ -281,18 +281,18 @@ public class KabusapiClient : IDisposable
 
     public async Task SubscribeAsync()
     {
-        Socket?.Dispose();
+        _Socket?.Dispose();
 
-        Socket = new WebsocketClient(SocketEndPoint);
-        Socket.DisconnectionHappened.Subscribe(msg =>
+        _Socket = new WebsocketClient(SocketEndPoint);
+        _Socket.DisconnectionHappened.Subscribe(msg =>
         {
             OnDisconnected?.Invoke(this, new EventArgs());
         });
-        Socket.ReconnectionHappened.Subscribe(msg =>
+        _Socket.ReconnectionHappened.Subscribe(msg =>
         {
             OnConnecting?.Invoke(this, new EventArgs());
         });
-        Socket.MessageReceived.Subscribe(msg =>
+        _Socket.MessageReceived.Subscribe(msg =>
         {
             if (msg.MessageType == WebSocketMessageType.Text)
             {
@@ -303,16 +303,16 @@ public class KabusapiClient : IDisposable
                 }
             }
         });
-        await Socket.Start();
+        await _Socket.Start();
     }
 
-    public async Task UnsubscribeAsync()
+    public void Unsubscribe()
     {
-        var s = Socket;
-        Socket = null;
+        var s = _Socket;
+        _Socket = null;
         if (s is not null)
         {
-            await s.Stop(WebSocketCloseStatus.NormalClosure, "Unsubscribe");
+            s.IsReconnectionEnabled = false;
             s.Dispose();
         }
     }
@@ -327,6 +327,8 @@ public class KabusapiClient : IDisposable
     {
         if (!_IsDisposed)
         {
+            _Socket?.Dispose();
+            _Socket = null;
             _HttpClient?.Dispose();
             _HttpClient = null;
             _IsDisposed = true;
